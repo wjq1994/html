@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=" utf-8">
+    <title>scroll-width</title>
+    <style>
+        div{
+            border:2px dotted #ccc;
+            text-align:center;
+        }
+        #parent {
+            width :150px;
+            height :60px;
+            margin-bottom :5px;
+            padding :10px;
+            overflow :auto;
+        }
+        #inner {
+            width :300px;
+            height :30px;
+            margin:5px;
+        }
+        #show {
+            width: 170px;
+            color:green;
+            font-size: 12px;
+        }
+    </style>
+    <script>
+        /**
+          下面进行一下分析：
+
+         （1）."内容宽度" 较大，所以父元素出现水平滚动条。
+
+         （2）."内容宽度" 等于元素在不出现水平滚动条情况下，恰好容纳其内部所有内容所需要的视口宽度。
+
+         （3）.parent.padding-left(10) + inner.width(300) + inner.borderWidth(2+2) + inner.margin-left(5) =319 。
+
+            强调：默认，父块级元素空间不足的情况下，子块级元素的右外边距和父元素的右内边距会失效，首先满足左边。
+         */
+
+        window.onload = ()=> {
+            let oDiv = document.getElementById("parent");
+            let oShow = document.getElementById("show");
+            let num = oDiv.scrollWidth;
+            oShow.innerHTML = num;
+        }
+    </script>
+</head>
+<body>
+<div id="parent">
+    <div id="inner"></div>
+</div>
+<div id="show"></div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box1 {
+            position: relative;
+            width: 300px;
+            height: 80px;
+            border: 10px solid #000000;
+            margin: 0 auto;
+            padding: 10px;
+            background-color: aliceblue;
+        }
+        .box2 {
+            position: absolute;
+            left: -40px;
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+            height: 40px;
+            border: 5px solid #000000;
+            background-color: antiquewhite;
+            /* offsetLeft 和这属性无关 */
+            box-sizing: content-box;
+        }
+    </style>
+</head>
+<body>
+<div class="box1">
+    <div class="box2"></div>
+</div>
+
+<script>
+    /*
+    网页可见区域宽：document.body.clientWidth 该属性包括内边距 padding，但不包括边框 border、外边距 margin 和垂直滚动条（如果有的话）。
+    网页可见区域高：document.body.clientHeight 这个属性是只读属性，对于没有定义CSS或者内联布局盒子的元素为0，否则，它是元素内部的高度(单位像素)，包含内边距，但不包括水平滚动条、边框和外边距。
+    网页可见区域宽：document.body.offsetWidth  (包括边线的宽)
+    网页可见区域高：document.body.offsetHeight (包括边线的宽)(注意不是浏览器窗口的高度)
+    dom元素相对于其父定位元素顶部的距离：dom.offsetTop  (dom为dom对象的引用)(包括边线的宽)
+    dom元素相对于其父定位元素左边的距离：dom.offsetLeft (dom为dom对象的引用)(包括边线的宽) 返回当前元素左上角相对于  HTMLElement.offsetParent 节点的左边界偏移的像素值。
+    网页正文全文宽：document.body.scrollWidth
+    网页正文全文高：document.body.scrollHeight (注意不是浏览器窗口的高度)
+    网页被卷去的高：document.body.scrollTop    (is_writeable)
+    网页被卷去的左：document.body.scrollLeft   (is_writeable)
+    网页正文部分上：window.screenTop(浏览器窗口相对于桌面的高)
+    网页正文部分左：window.screenLeft(浏览器窗口相对于桌面的左)
+    屏幕分辨率的高：window.screen.height
+    屏幕分辨率的宽：window.screen.width
+    屏幕可用工作区高度：window.screen.availHeight (相对于 屏幕分辨率的高 会把屏幕上方菜单栏的高度去掉)
+    屏幕可用工作区宽度：window.screen.availWidth  (似乎和 window.screen.width 的值一样)
+    */
+
+    // function Query () {
+    //     console.log("网页可见区域宽：document.body.clientWidth ->"+document.body.clientWidth) ;
+    //     console.log("网页可见区域高：document.body.clientHeight ->"+document.body.clientHeight) ;
+    //     console.log("网页可见区域宽：document.body.offsetWidth (包括边线的宽) ->"+document.body.offsetWidth) ;
+    //     console.log("网页可见区域高：document.body.offsetHeight (包括边线的宽) ->"+document.body.offsetHeight) ;
+    //     console.log("网页正文全文宽：document.body.scrollWidth ->"+document.body.scrollWidth) ;
+    //     console.log("网页正文全文高：document.body.scrollHeight ->"+document.body.scrollHeight) ;
+    //     console.log("网页被卷去的高：document.body.scrollTop ->"+document.body.scrollTop ) ;
+    //     console.log("网页被卷去的左：document.body.scrollLeft ->"+document.body.scrollLeft ) ;
+    //     console.log("网页正文部分上：window.screenTop ->"+window.screenTop ) ;
+    //     console.log("网页正文部分左：window.screenLeft ->"+window.screenLeft) ;
+    //     console.log("屏幕分辨率的高：window.screen.height ->"+window.screen.height ) ;
+    //     console.log("屏幕分辨率的宽：window.screen.width ->"+window.screen.width ) ;
+    //     console.log("屏幕可用工作区高度：window.screen.availHeight ->"+window.screen.availHeight ) ;
+    //     console.log("屏幕可用工作区宽度：window.screen.availWidth ->"+window.screen.availWidth ) ;
+    // }
+    // Query() ;
+
+    function domQuery () {
+        console.log("box1相对于box2：document.offsetLeft ->"+document.querySelector(".box2").offsetLeft);
+        console.log("box1相对于box2：document.offsetTop ->"+document.querySelector(".box2").offsetTop);
+    }
+
+    domQuery();
+
+</script>
+</body>
+</html>

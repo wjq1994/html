@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=" utf-8">
+    <meta name="author" content="https://www.softwhy.com/" />
+    <title>scroll宽度不包括垂直滚动条</title>
+    <style>
+        div{ border :2px dotted #ccc;}
+        #parent {
+            width: 120px;
+            height: 60px;
+            margin: 5px;
+            padding: 10px;
+            overflow: auto;
+        }
+        #inner {
+            width: 100px;
+            height: 100px;
+        }
+        #show {
+            width: 145px;
+            color:green;
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+    <script>
+        /*
+
+            代码分析如下：
+
+            （1）scrollWidth 不包含垂直滚动条宽度。
+
+            （2）如果滚动条显示，则减掉滚动条宽度，当前谷歌滚动条宽度是 17px，各浏览器滚动条宽度以实测为准。
+
+            （3）123 = 120（width）+ 10（padding-left）+ 10（padding-right）- 17。
+
+            （4）目前滚动条存在但不显示，140 = 120（width）+ 10（padding-left）+ 10（padding-right）
+
+         */
+        window.onload = ()=> {
+            let oDiv=document.getElementById("parent");
+            let oShow=document.getElementById("show");
+            let num = oDiv.scrollWidth;
+            oShow.innerHTML = num;
+        }
+    </script>
+</head>
+<body>
+<div id="parent">
+    <div id="inner"></div>
+</div>
+<div id="show"></div>
+</body>
+</html>

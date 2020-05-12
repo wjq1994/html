@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>鼠标事件的定位</title>
+    <style>
+        html,body {
+            margin: 0px;
+            padding: 0px;
+            height: 100%;
+        }
+        p {
+            width: 150%;
+        }
+    </style>
+</head>
+<body onmousedown="showCoords(event)">
+<p>To display the mouse coordinates click anywhere on the page.To display the mouse coordinates click anywhere on the page.To display the mouse coordinates click anywhere on the page.To display the mouse coordinates click anywhere on the page.To display the mouse coordinates click anywhere on the page.</p>
+<script>
+    /*
+        1. clientX  MouseEvent.clientX 是只读属性， 它提供事件发生时的应用客户端区域的水平坐标 (与页面坐标不同)。
+                    例如，不论页面是否有水平滚动，当你点击客户端区域的左上角时，鼠标事件的 clientX 值都将为 0 。
+
+           pageX    是一个由MouseEvent接口返回的相对于整个文档的x（水平）坐标以像素为单位的只读属性。
+                    这个属性将基于文档的边缘，
+                    考虑任何页面的水平方向上的滚动。
+                    举个例子，如果页面向右滚动 200px 并出现了滚动条，这部分在窗口之外，然后鼠标点击距离窗口左边 100px 的位置，pageX 所返回的值将是 300。
+     */
+    function showCoords(evt){
+        alert(
+            "clientX value: " + evt.clientX + "\n" +
+            "clientY value: " + evt.clientY + "\n" +
+            "offsetX value: " + evt.offsetX + "\n" +
+            "offsetY value: " + evt.offsetY + "\n" +
+            "pageX value: " + evt.pageX + "\n" +
+            "pageY value: " + evt.pageY + "\n" +
+            "screenX value: " + evt.screenX + "\n" +
+            "screenY value: " + evt.screenY + "\n"
+        );
+    }
+</script>
+</body>
+</html>

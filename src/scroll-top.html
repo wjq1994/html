@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=" utf-8">
+    <title>scroll-top</title>
+    <style>
+        #box {
+            width: 150px;
+            height: 200px;
+            border: 2px dotted #ccc;
+            overflow: auto;
+        }
+        #inner {
+            width: 50px;
+            height: 350px;
+            border: 2px dotted green;
+        }
+    </style>
+    <script>
+        /*
+        代码分析如下：
+
+        （1）父元素在垂直方向出现滚动条，这是发生垂直滚动的先决条件。
+
+        （2）为 box 元素 scrollTop 属性赋值，接受的值是纯数字，返回值也是如此，否则报错。
+
+        （3）运行代码之后，滚动条会被定位于某处。
+
+        （4）滚动条上的位置不是真实尺寸
+         */
+        window.onload = ()=> {
+            let oBox = document.getElementById("box");
+            let oinner = document.getElementById("inner");
+            oBox.scrollTop = 50;
+        }
+    </script>
+</head>
+<body>
+<div id="box">
+    <div id="inner"></div>
+</div>
+</body>
+</html>
