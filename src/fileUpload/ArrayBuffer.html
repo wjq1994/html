@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ArrayBuffer</title>
+</head>
+<body>
+<script>
+    // ArrayBuffer => Blob
+    let blob = new Blob([10000000,2,3,4])
+    let reader = new FileReader();
+    reader.onload = function(result) {
+        console.log("ArrayBuffer类型", result.target.result instanceof ArrayBuffer);
+        let data = result.target.result;
+        console.log("ArrayBuffer data: ", data);
+    }
+    reader.readAsArrayBuffer(blob);
+</script>
+</body>
+</html>

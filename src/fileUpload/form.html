@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form>
+    <fieldset>
+        <legend>参考文献</legend>
+        <a href="https://qiufeng.blue/node/upload.html#%E5%89%8D%E8%A8%80">参考链接</a>
+    </fieldset>
+</form>
+
+
+
+<form id="form-file" method="post" action="" enctype="multipart/form-data">
+    <fieldset>
+        <legend>File</legend>
+        <p>选择文件</p>
+        <input type="file" name="file"><br>
+        <br>
+        <button type="submit" >提交</button>
+    </fieldset>
+</form>
+
+<form id="form" >
+
+    <fieldset>
+        <legend>FormData</legend>
+        <p>姓名：</p>
+        <input type="text" name="stuName" value="wang"><br>
+        <p>学号：</p>
+        <input type="text" name="stuNo" value="1234"><br>
+        <p>爱好：</p>
+        <input type="text" name="hobby" value="play"><br>
+
+        <p>选择文件</p>
+        <input type="file" name="file"><br>
+        <br>
+        <button type="button" id="btn">提交</button>
+    </fieldset>
+</form>
+<form id="form-blob" method="post" action="" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Blob</legend>
+        <p>选择文件</p>
+        <input type="file" name="file"><br>
+        <br>
+        <button type="button"  id="btn-blob—upload">上传文件</button>
+        <button type="button"  id="btn-blob-download">下载文件</button>
+    </fieldset>
+</form>
+<form id="form-ArrayBuffer" method="post" action="" enctype="multipart/form-data">
+    <fieldset>
+        <legend>ArrayBuffer</legend>
+        <br>
+        <button type="button"  id="btn-ArrayBuffer-download">ArrayBuffer生成文件</button>
+    </fieldset>
+</form>
+<form id="form-Base64" method="post" action="" enctype="multipart/form-data">
+    <fieldset>
+        <legend>ArrayBuffer</legend>
+        <br>
+        <button type="button"  id="btn-base64-download">base64生成文件</button>
+    </fieldset>
+</form>
+<script>
+    window.onload = function() {
+        //创建xhr对象
+        var xhr;
+        if(window.XMLHttpRequest){
+            xhr = new XMLHttpRequest();
+        }else{
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        document.querySelector("#btn").onclick = function() {
+            //发送请求
+            xhr.open('post','/form/data',true);
+            var file = document.querySelector("form [name=file]").files[0];//获取文件
+
+            var formData = new FormData();
+
+            var stuName = document.querySelector("[name=stuName]").value;
+            var stuNo = document.querySelector("[name=stuNo]").value;
+            var hobby = document.querySelector("[name=hobby]").value;
+
+            formData.append("file", file);
+            formData.append("stuName",stuName);//添加学生的id
+            formData.append("stuNo",stuNo);//添加学生的id
+            formData.append("hobby",hobby);//添加学生的id
+
+
+            xhr.send(formData);
+            //同步接受响应
+            if(xhr.readyState == 4){
+                if(xhr.status == 200){
+                    console.log(xhr.responseText)
+                    //实际操作
+                    result.innerHTML += xhr.responseText;
+                }
+            }
+        };
+        document.querySelector("#btn-blob—upload").onclick = function() {
+            funUpload();
+        };
+        document.querySelector("#btn-blob-download").onclick = function() {
+            const json = { hello: "world" };
+            let content = JSON.stringify(json, null, 2)
+            funDownload(content, 'application/json', "test.json");
+        };
+        document.querySelector("#btn-ArrayBuffer-download").onclick = function() {
+            const bufferArrary = [137,80,78,71,13,10,26,10,0,0,0,13,73,72,68,82,0,0,0,1,0,0,0,1,1,3,0,0,0,37,219,86,202,0,0,0,6,80,76,84,69,0,0,255,128,128,128,76,108,191,213,0,0,0,9,112,72,89,115,0,0,14,196,0,0,14,196,1,149,43,14,27,0,0,0,10,73,68,65,84,8,153,99,96,0,0,0,2,0,1,244,113,100,166,0,0,0,0,73,69,78,68,174,66,96,130];
+            const array = Uint8Array.from(bufferArrary);
+            const blob = new Blob([array], {type: 'image/png'});
+            var eleLink = document.createElement('img');
+            eleLink.src = URL.createObjectURL(blob);
+            document.body.appendChild(eleLink);
+        };
+        document.querySelector("#btn-base64-download").onclick = function() {
+            const base64 = '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';
+            const byteCharacters = atob(base64);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const array = Uint8Array.from(byteNumbers);
+            const blob = new Blob([array], {type: 'image/png'});
+            var eleLink = document.createElement('img');
+            eleLink.src = URL.createObjectURL(blob);
+            this.parentElement.appendChild(eleLink);
+        };
+        function funDownload(content, mimeType ,filename) {
+            // 创建隐藏的可下载链接
+            var eleLink = document.createElement('a');
+            eleLink.download = filename;
+            eleLink.style.display = 'none';
+
+            // 字符内容转变成blob地址
+            const blob = new Blob([content], { type: mimeType });
+            var objectURL = URL.createObjectURL(blob);
+            eleLink.href = objectURL;
+            // 触发点击
+            document.body.appendChild(eleLink);
+            eleLink.click();
+            // 然后移除
+            document.body.removeChild(eleLink);
+            // 释放资源
+            URL.revokeObjectURL(objectURL);
+        };
+
+        function funUpload() {
+            //发送请求
+            xhr.open('post','/form/data',true);
+            const json = { hello: "world" };
+            const blob = new Blob([JSON.stringify(json, null, 2)], { type: 'application/json' });
+
+            const formData = new FormData();
+            formData.append('file', blob, '1.json');
+
+            xhr.send(formData);
+            //同步接受响应
+            if(xhr.readyState == 4){
+                if(xhr.status == 200){
+                    console.log(xhr.responseText);
+                    //实际操作
+                    result.innerHTML += xhr.responseText;
+                }
+            }
+        }
+    }
+
+</script>
+</body>
+</html>
