@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button onclick="submit()">提交</button>
+    <script>
+        var fn = throttle(3000, () => {
+            console.log(new Date());
+        });
+        function submit() {
+            fn();
+        }
+        function throttle(delay, callback) {
+            var lastExec = 0;
+            var timeoutID = undefined;
+            function wrap() {
+                Elapsed = Number(new Date()) - lastExec;
+                function exec() {
+                    lastExec = Number(new Date());
+                    callback();
+                };
+
+                if (timeoutID) {
+                    // clearTimeout --> 使得setTimeout失效
+                    clearTimeout(timeoutID);
+                }
+
+                if (Elapsed > delay) {
+                    exec();
+                } else {
+                    timeoutID = setTimeout(exec, delay - Elapsed);
+                }
+
+            }
+
+            return wrap;
+        }
+    </script>
+</body>
+</html>
