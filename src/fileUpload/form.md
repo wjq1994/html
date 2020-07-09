@@ -24,7 +24,7 @@
     <p>选择文件</p>
     <input type="file" name="file"><br>
     <br>
-    <button type="button" id="btn">提交</>
+    <button type="button" id="btn">提交</button>
 </form>
 <script>
     window.onload = function() {
