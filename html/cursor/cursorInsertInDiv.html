@@ -11,7 +11,12 @@
     <button type="button" onclick="insert()">插入字符</button>
     <div contentEditable="true" style="height:50px; border:2px solid red;" id="test"> </div>
     <script>
-        function insertHtmlAtCaret(html) {
+        function insertHtmlAtCaret(dom, html) {
+            if (dom) {
+                dom.focus()
+            } else {
+                console.error("dom is not found")
+            }
             var sel, range;
             if (window.getSelection) {
                 // IE9 and non-IE
@@ -44,7 +49,7 @@
         }
 
         function insert() {
-            document.getElementById('test').focus(); insertHtmlAtCaret('<span contenteditable="false">{66666}</span>');
+            insertHtmlAtCaret(document.getElementById('test'), '<span contenteditable="false">{66666}</span>');
         }
     </script>
 </body>
